@@ -19,8 +19,8 @@ const Home = () => {
                         <h1 className="text-2xl font-bold text-white text-center py-3">Mint Now</h1>
                         <div className='mintQuantitySec'>
                             <div className='p-3'>
-                                <p className='text-[#989eaa]' >Price <span className='text-white' >0.01</span>  <span className='text-[#f97316]'> ETH</span></p>
-                                <p className="py-1 text-[#989eaa]">Total Price <span className='text-white' >0.01</span> <span className='text-[#f97316]'> ETH</span></p>
+                                <p className='text-[#989eaa]' >Price: <span className='text-white' > 0.01 </span>  <span className='text-[#f97316]'> ETH</span></p>
+                                <p className="py-1 text-[#989eaa]">Total Price: <span className='text-white' > 0.01 </span> <span className='text-[#f97316]'> ETH</span></p>
 
                                 <p className="p-5 flex text-[#989eaa]"> Select Quantity:
                                     <span className='quantityCounter px-3' >
