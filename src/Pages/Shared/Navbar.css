@@ -1,3 +1,5 @@
 .connectButton {
+    padding: 10px 15px;
+    cursor: pointer;
     background-image: linear-gradient(to right top, #eb551e, #e84d1f, #e64520, #e33c22, #e03223);
 }

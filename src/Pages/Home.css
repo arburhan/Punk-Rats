@@ -1,0 +1,29 @@
+.cardParent {
+    display: flex;
+    gap: 100px;
+}
+
+.mintQuantitySec {
+    text-align: center;
+    padding: 15px 25px;
+    border-radius: 15px;
+    background-color: #1a0402d2;
+}
+
+.signButton {
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.quantityCounter {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    color: white;
+}
+
+.cursor-pointer {
+    padding: 5px;
+    border-radius: 50%;
+}
