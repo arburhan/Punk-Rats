@@ -6,10 +6,10 @@ const Home = () => {
     return (
         <section>
             <div className="hero min-h-screen">
-                <div className="cardParent">
+                <div className="cardParent px-5 px-10">
                     <div className="card  bg-[rgba(116,87,84,0.75)] shadow-xl">
                         <figure>
-                            <img src={tomCat} alt="tom" className="rounded-xl h-80 w-64" />
+                            <img src={tomCat} alt="tom" className="rounded-xl h-80 w-96 md:w-64" />
                         </figure>
                         <div className="card-body text-center ">
                             <p className="text-xl p-0 m-0">Punk Rats Club</p>
