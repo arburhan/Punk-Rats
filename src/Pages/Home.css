@@ -27,3 +27,12 @@
     padding: 5px;
     border-radius: 50%;
 }
+
+@media screen and (max-width:688px) {
+    .cardParent {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+}

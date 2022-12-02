@@ -7,7 +7,6 @@ const Home = () => {
         <section>
             <div className="hero min-h-screen">
                 <div className="cardParent">
-
                     <div className="card  bg-[rgba(116,87,84,0.75)] shadow-xl">
                         <figure>
                             <img src={tomCat} alt="tom" className="rounded-xl h-80 w-64" />
@@ -20,10 +19,10 @@ const Home = () => {
                         <h1 className="text-2xl font-bold text-white text-center py-3">Mint Now</h1>
                         <div className='mintQuantitySec'>
                             <div className='p-3'>
-                                <p >Price 0.01<span className='text-[#f97316]'> ETH</span></p>
-                                <p className="py-1">Total Price 0.01<span className='text-[#f97316]'> ETH</span></p>
+                                <p className='text-[#989eaa]' >Price <span className='text-white' >0.01</span>  <span className='text-[#f97316]'> ETH</span></p>
+                                <p className="py-1 text-[#989eaa]">Total Price <span className='text-white' >0.01</span> <span className='text-[#f97316]'> ETH</span></p>
 
-                                <p className="p-5 flex"> Select Quantity:
+                                <p className="p-5 flex text-[#989eaa]"> Select Quantity:
                                     <span className='quantityCounter px-3' >
                                         <span className='cursor-pointer bg-[#8b1716]' >
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
