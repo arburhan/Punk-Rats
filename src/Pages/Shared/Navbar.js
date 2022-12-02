@@ -3,7 +3,7 @@ import './Navbar.css';
 
 const Navbar = () => {
     return (
-        <section className='px-12' >
+        <section className='px-1 md:px-12' >
             <div className="navbar">
                 <div className="navbar-start">
 
