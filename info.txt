@@ -1,0 +1,7 @@
+এতে যা কিছু ইন্সটল করা আছেঃ 
+1. Tailwind CSS
+2. daisyUI
+3. React Router
+4. React Query
+5. React hook form
+
