@@ -1,0 +1,7 @@
+// 2. Get balance
+async function getBalance() {
+    const balance = await signer.getBalance()
+    const convertToEth = 1e18;
+    console.log("account's balance in ether:", balance.toString() / convertToEth);
+}
+
