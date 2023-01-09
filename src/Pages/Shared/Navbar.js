@@ -1,25 +1,35 @@
 import { ethers } from 'ethers';
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loading from './Loading';
 import './Navbar.css';
 
 const Navbar = ({ getAddress, setGetAddress }) => {
+    const [isLoading, setIsloading] = useState(false);
     let provider = new ethers.providers.Web3Provider(window.ethereum);
     let signer;
     async function maskConnector() {
+        setIsloading(true);
         await provider.send("eth_requestAccounts", []);
         signer = await provider.getSigner();
         const accountAddress = await signer.getAddress();
         if (accountAddress) {
+
             setGetAddress(accountAddress);
+
         }
         else {
             console.warn('nah');
         }
+        setIsloading(false);
+
     }
     async function maskDisConnector() {
-        setGetAddress(null)
-        console.log("log out");
+        setGetAddress(null);
+    }
+    if (isLoading) {
+        return <Loading></Loading>;
     }
 
     return (
@@ -42,9 +52,10 @@ const Navbar = ({ getAddress, setGetAddress }) => {
 
                     }
 
-                    {getAddress === null ?
-                        <Link to='' onClick={maskConnector} className="text-white rounded-2xl connectButton capitalize border-0">Connect Wallet</Link>
-                        : <Link to='' onClick={maskDisConnector} className="text-white rounded-2xl connectButton capitalize border-0">Log Out</Link>}
+                    {((getAddress !== null) && (getAddress.length !== 0)) ?
+                        <Link to='' onClick={maskDisConnector} className="text-white rounded-2xl connectButton capitalize border-0">Log Out</Link>
+
+                        : <Link to='' onClick={maskConnector} className="text-white rounded-2xl connectButton capitalize border-0">Connect Wallet</Link>}
 
                 </div>
             </div>

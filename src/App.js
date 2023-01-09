@@ -6,12 +6,11 @@ import { useState } from 'react';
 
 function App() {
   const [getAddress, setGetAddress] = useState('');
-  console.log(getAddress)
   return (
     <div className='parentDiv'>
       <Navbar getAddress={getAddress} setGetAddress={setGetAddress}></Navbar>
       <Routes>
-        <Route path='/' element={<Home></Home>} ></Route>
+        <Route path='/' element={<Home getAddress={getAddress}></Home>} ></Route>
       </Routes>
     </div>
   );
