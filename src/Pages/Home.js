@@ -2,12 +2,16 @@ import React from 'react';
 import './Home.css';
 import tomCat from '../Images/Tom_Cat_original.webp';
 import { useState } from 'react';
+import { ethers } from 'ethers';
+import { ABI } from './Shared/ABI';
 
 
 const Home = ({ getAddress }) => {
     console.log(getAddress)
     let [number, setNumber] = useState(1);
     let [totalPrice, setTotalPrice] = useState(0.1);
+    const [count, setCount] = useState(0);
+    const ContactAddress = "0x90d3Ebb0F4e98D3e759EF993eF78e3CFE582734C"; //test
     const handleIncreement = () => {
         if ((number < 10) || (totalPrice < 0.10)) {
             setNumber(number + 1);
@@ -20,8 +24,39 @@ const Home = ({ getAddress }) => {
             setTotalPrice((parseFloat(totalPrice) - parseFloat(0.1)).toFixed(1));
         }
     }
-    const handleMint = () => {
-        console.log("mint")
+    // GET TOTAL COUNT
+    async function getTokenCount() {
+        const testNode = "https://rinkeby.infura.io/v3/22dc00a515804b3fb98cff185e0a3f32"
+        const mainNode = "https://mainnet.infura.io/v3/22dc00a515804b3fb98cff185e0a3f32"
+        const provider = new ethers.providers.JsonRpcProvider(mainNode)
+        const contract = new ethers.Contract(ContactAddress, ABI, provider);
+        const result = await contract.tokenCounter();
+        setCount(result.toNumber());
+    }
+    getTokenCount();
+    const handleMint = async () => {
+        if (getAddress) {
+            try {
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const signer = await provider.getSigner();
+                const contract = new ethers.Contract(ContactAddress, ABI, signer);
+                const gas = 250000 * 5;
+                let Price = totalPrice.toFixed(1);
+                const options = { value: ethers.utils.parseEther(Price), gasLimit: gas };
+                let x = await contract.createCollectible(number, options);
+                console.log(x)
+
+                setTimeout(getTokenCount, 5000);
+                console.log('Mint succcessssssss')
+            }
+            catch (err) {
+                console.warn(err);
+            }
+            console.log("mint")
+        }
+        else {
+            console.error("Connect Wallet");
+        }
 
     }
 
@@ -61,7 +96,7 @@ const Home = ({ getAddress }) => {
                                 </p>
                                 <button onClick={handleMint} className="bg-[#b91c1c] hover:bg-[#b91c1c] text-white px-6 py-3 rounded-xl my-5">MINT</button>
 
-                                <p className="py-5 text-white">0 out of 10,000 minted</p>
+                                <p className="py-5 text-white">{count} out of 10,000 minted</p>
                             </div>
                         </div>
                     </div>
