@@ -7,11 +7,10 @@ import { ABI } from './Shared/ABI';
 
 
 const Home = ({ getAddress }) => {
-    console.log(getAddress)
     let [number, setNumber] = useState(1);
     let [totalPrice, setTotalPrice] = useState(0.1);
     const [count, setCount] = useState(0);
-    const ContactAddress = "0x90d3Ebb0F4e98D3e759EF993eF78e3CFE582734C"; //test
+    const ContactAddress = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4"; //test
     const handleIncreement = () => {
         if ((number < 10) || (totalPrice < 0.10)) {
             setNumber(number + 1);
@@ -24,41 +23,58 @@ const Home = ({ getAddress }) => {
             setTotalPrice((parseFloat(totalPrice) - parseFloat(0.1)).toFixed(1));
         }
     }
-    // GET TOTAL COUNT
+    async function MintPage() {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const contractAddress = '0x76bdbb10f4a8d5cb9fe24efee597f949b74fc352';
+        const pinataUri = "https://gateway.pinata.cloud/ipfs/QmUafqaMtwtNAviffAQMsmnm2da1QZSbLeS62FLP535cDa";
+        const signer = await provider.getSigner();
+        const Mint = async () => {
+            let contract = new ethers.Contract(contractAddress, ABI, signer);
+            const minNft = await contract.safeMint(getAddress, pinataUri);
+            console.log(minNft.hash)
+        }
+        setTimeout(Mint, 5000);
+    }
+
+    /* // GET TOTAL COUNT
     async function getTokenCount() {
-        const testNode = "https://rinkeby.infura.io/v3/22dc00a515804b3fb98cff185e0a3f32"
-        const mainNode = "https://mainnet.infura.io/v3/22dc00a515804b3fb98cff185e0a3f32"
-        const provider = new ethers.providers.JsonRpcProvider(mainNode)
-        const contract = new ethers.Contract(ContactAddress, ABI, provider);
-        const result = await contract.tokenCounter();
-        setCount(result.toNumber());
+        const testNode = "https://goerli.infura.io/v3/0a24b191480843878905841b4a20e242"
+        // const mainNode = "https://mainnet.infura.io/v3/22dc00a515804b3fb98cff185e0a3f32"
+        const provider = new ethers.providers.JsonRpcProvider(testNode);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(ContactAddress, ABI, signer);
+        console.log(contract)
+        const result = await contract.safeMint(getAddress, testNode);
+        setCount(result);
     }
     getTokenCount();
+
     const handleMint = async () => {
         if (getAddress) {
-            try {
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const signer = await provider.getSigner();
-                const contract = new ethers.Contract(ContactAddress, ABI, signer);
-                const gas = 250000 * 5;
-                let Price = totalPrice.toFixed(1);
-                const options = { value: ethers.utils.parseEther(Price), gasLimit: gas };
-                let x = await contract.createCollectible(number, options);
-                console.log(x)
-
-                setTimeout(getTokenCount, 5000);
-                console.log('Mint succcessssssss')
-            }
-            catch (err) {
-                console.warn(err);
-            }
             console.log("mint")
         }
         else {
             console.error("Connect Wallet");
         }
+        try {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = await provider.getSigner();
+            const contract = new ethers.Contract(ContactAddress, ABI, signer);
+            const gas = 250000 * 5;
+            let Price = totalPrice;
+            const options = { value: ethers.utils.parseEther(Price), gasLimit: gas };
+            let x = await contract.safeMint(getAddress, number, options);
+            console.log(x)
 
-    }
+            setTimeout(getTokenCount, 5000);
+            // toast.success("Successfully Collected!");
+        }
+        catch (err) {
+            // toast.error("There is an error!");
+            console.log("Error: ", err);
+        }
+
+    } */
 
     return (
         <section>
@@ -94,7 +110,7 @@ const Home = ({ getAddress }) => {
                                         </button>
                                     </span>
                                 </p>
-                                <button onClick={handleMint} className="bg-[#b91c1c] hover:bg-[#b91c1c] text-white px-6 py-3 rounded-xl my-5">MINT</button>
+                                <button onClick={MintPage} className="bg-[#b91c1c] hover:bg-[#b91c1c] text-white px-6 py-3 rounded-xl my-5">MINT</button>
 
                                 <p className="py-5 text-white">{count} out of 10,000 minted</p>
                             </div>
